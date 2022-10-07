@@ -30,7 +30,10 @@ public class Category {
     
     @Column(name = "description")
     private String description;
-       
+     
+    @Column(name="image")
+    private String image;
+    
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> product;
     

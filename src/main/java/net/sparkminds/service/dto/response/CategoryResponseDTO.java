@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryResponseDTPO {
+public class CategoryResponseDTO {
     private long id;
     private String name;
     private String description;
+    private String image;
     private Date updateAt;
     private Date createdAt;
 }

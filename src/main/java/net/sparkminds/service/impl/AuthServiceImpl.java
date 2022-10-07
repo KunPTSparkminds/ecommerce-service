@@ -3,6 +3,7 @@ package net.sparkminds.service.impl;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
 	@Transactional
 	public ReviewerResponseDTO register(RegisterRequestDTO registerRequestDTO) {
 		if (userRepository.existsByEmail(registerRequestDTO.getEmail())) {
-		   return null;
+		   throw new EntityExistsException("Email already exist");
 		};
 		User reviewer = new User();
 		reviewer.setEmail(registerRequestDTO.getEmail());

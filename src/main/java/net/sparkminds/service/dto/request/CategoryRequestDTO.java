@@ -1,6 +1,5 @@
 package net.sparkminds.service.dto.request;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Builder;
@@ -9,9 +8,12 @@ import lombok.Data;
 @Builder
 @Data
 public class CategoryRequestDTO {
-    @NotBlank(message = "The name is required")
+    @NotBlank(message = "Name is required")
     private String name;
     
-    @NotBlank(message = "The description is required")
+    @NotBlank(message = "Description is required")
     private String description;
+    
+    @NotBlank(message = "Image is required")
+    private String image;
 }
