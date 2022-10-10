@@ -15,6 +15,7 @@ public class ProductResponseDTO {
     private Long quantity;
     private Long categoryId;
     private String categoryName;
+    private String image;
     private Date updateAt;
     private Date createdAt;
 }

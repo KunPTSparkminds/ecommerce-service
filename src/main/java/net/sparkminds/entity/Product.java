@@ -38,18 +38,19 @@ public class Product {
 
     @Column(name = "quantity")
     private Long quantity;
-    
+    @Column(name = "image")
+    private String image;
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
-    
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<CartItem> cartItem;
-    
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
-    
+
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updateAt;
