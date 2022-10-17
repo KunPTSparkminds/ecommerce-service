@@ -3,6 +3,7 @@ package net.sparkminds.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ import lombok.Data;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -28,5 +29,10 @@ public class Cart {
     
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItem;
-
+    
+    @Column(name="is_done")
+    private Integer isDone;
+    
+    @Column(name="total")
+    private Long total;
 }

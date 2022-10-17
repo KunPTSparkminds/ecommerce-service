@@ -1,5 +1,8 @@
 package net.sparkminds.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.data.domain.Page;
@@ -92,6 +95,20 @@ public class ProductServiceImpl implements ProductService {
         if (product != null) {
             productRepository.delete(product);
         }
+    }
+
+    @Override
+    public List<ProductResponseDTO> getProductByCategoryId(Long id) {
+        return productRepository.findByCategoryId(id).stream()
+                .map(entity -> ProductResponseDTO.builder().id(entity.getId()).name(entity.getName())
+                        .description(entity.getDescription()).price(entity.getPrice()).quantity(entity.getQuantity())
+                        .image(entity.getImage())
+                        .createdAt(entity.getCreatedAt())
+                        .updateAt(entity.getUpdateAt())
+                        .categoryId(entity.getCategory().getId())
+                        .categoryName(entity.getCategory().getName())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }

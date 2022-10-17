@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewerResponseDTO {
+public class UserResponseDTO {
+    private long id;
 	private String name;
     private String email;
+    private String role;
 }

@@ -21,7 +21,7 @@ import net.sparkminds.service.RedisService;
 import net.sparkminds.service.dto.request.LoginRequestDTO;
 import net.sparkminds.service.dto.request.RegisterRequestDTO;
 import net.sparkminds.service.dto.response.LoginResponse;
-import net.sparkminds.service.dto.response.ReviewerResponseDTO;
+import net.sparkminds.service.dto.response.UserResponseDTO;
 import net.sparkminds.service.mapper.ReviewerMapper;
 
 @Service
@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	@Transactional
-	public ReviewerResponseDTO register(RegisterRequestDTO registerRequestDTO) {
+	public UserResponseDTO register(RegisterRequestDTO registerRequestDTO) {
 		if (userRepository.existsByEmail(registerRequestDTO.getEmail())) {
 		   throw new EntityExistsException("Email already exist");
 		};
@@ -77,5 +77,12 @@ public class AuthServiceImpl implements AuthService {
 
 		return reviewerMapper.entityToResponse(reviewer);
 	}
+
+    @Override
+    public  UserResponseDTO getUserDetail(String token) {
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        User user = userRepository.findByEmail(username).orElse(null);
+        return UserResponseDTO.builder().id(user.getId()).email(username).name(user.getName()).role(user.getRole()).build();
+    }
 
 }

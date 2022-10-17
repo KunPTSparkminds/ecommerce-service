@@ -25,7 +25,7 @@ import lombok.Data;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -38,8 +38,10 @@ public class Product {
 
     @Column(name = "quantity")
     private Long quantity;
+    
     @Column(name = "image")
     private String image;
+    
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;

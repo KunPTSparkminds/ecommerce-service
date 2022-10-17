@@ -49,7 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void deleteCategory(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
-        
         if (category != null) {
             categoryRepository.delete(category);
         }

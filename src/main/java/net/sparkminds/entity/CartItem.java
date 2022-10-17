@@ -1,5 +1,7 @@
 package net.sparkminds.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Entity
@@ -17,7 +21,7 @@ import lombok.Data;
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     
     @ManyToOne
@@ -33,4 +37,5 @@ public class CartItem {
     
     @Column(name="price")
     private Long price;
+    
 }

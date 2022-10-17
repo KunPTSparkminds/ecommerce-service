@@ -1,5 +1,7 @@
 package net.sparkminds.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,5 +13,6 @@ public interface ProductService {
     ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
     ProductResponseDTO updateProduct(ProductRequestDTO productRequestDTO, long id);
     ProductResponseDTO getProductDetail(Long id);
+    List<ProductResponseDTO> getProductByCategoryId(Long id);
     void deleteProduct(Long id);
 }

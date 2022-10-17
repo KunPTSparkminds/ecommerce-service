@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import net.sparkminds.entity.User;
 import net.sparkminds.service.dto.request.RegisterRequestDTO;
-import net.sparkminds.service.dto.response.ReviewerResponseDTO;
+import net.sparkminds.service.dto.response.UserResponseDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -25,11 +25,11 @@ public class ReviewerMapper {
 		return reviewer;
 	}
 
-	public ReviewerResponseDTO entityToResponse(User entity) {
+	public UserResponseDTO entityToResponse(User entity) {
 		if (entity == null)
 			return null;
 
-		ReviewerResponseDTO responseDto = new ReviewerResponseDTO();
+		UserResponseDTO responseDto = new UserResponseDTO();
 		responseDto.setEmail(entity.getEmail());
 		responseDto.setName(entity.getName());
 		return responseDto;

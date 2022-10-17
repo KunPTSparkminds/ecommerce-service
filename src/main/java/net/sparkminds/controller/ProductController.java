@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -59,5 +60,10 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping(value="detail")
+    public ResponseEntity<List<ProductResponseDTO>> getProductByCategoryId(@RequestParam Long categoryId) {
+        return ResponseEntity.ok(productService.getProductByCategoryId(categoryId));
     }
 }
