@@ -46,8 +46,10 @@ public class CartItemServiceImpl implements CartItemService{
     }
     @Override
     public List<CartItemResponseDTO> getAllItemInCart(Long id) {
+        List<CartItem> cartTest = cartItemRepository.getItemByCartId(id);
+//        System.out.println("test cart"+cartTest);
         List<CartItem> cartItem = cartRepository.findById(id).orElse(null).getCartItem();
-        return cartItem.stream().map(entity -> CartItemResponseDTO
+        return cartTest.stream().map(entity -> CartItemResponseDTO
                 .builder()
                 .cartId(entity.getCart().getId())
                 .id(entity.getId())
@@ -63,6 +65,14 @@ public class CartItemServiceImpl implements CartItemService{
     public void deleteCartItem(Long id) {
         CartItem cartItem = cartItemRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cart item not found"));
         cartItemRepository.delete(cartItem);
+    }
+    @Override
+    @Transactional
+    public void deleteItemByCartId(Long cartId) {
+        List<CartItem> cartItem= cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found")).getCartItem();
+        if (!cartItem.isEmpty()) {
+            cartItemRepository.deleteItemByCartId(cartId);
+        }
     }
 
 }

@@ -9,4 +9,5 @@ public interface CartItemService {
     CartItemResponseDTO createCartItem(CartItemRequestDTO cartItemRequestDTO);
     List<CartItemResponseDTO> getAllItemInCart(Long id);
     void deleteCartItem(Long id);
+    void deleteItemByCartId(Long cartId);
 }

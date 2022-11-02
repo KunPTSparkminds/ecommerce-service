@@ -30,6 +30,7 @@ import net.sparkminds.service.dto.response.ProductResponseDTO;
 public class ProductController {
     private final ProductService productService;
     private final ProductRepository productRepository;
+
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getAllProduct(@PageableDefault Pageable pageable,
             HttpServletResponse response) {
@@ -61,7 +62,7 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-    
+
     @GetMapping(value="detail")
     public ResponseEntity<List<ProductResponseDTO>> getProductByCategoryId(@RequestParam Long categoryId) {
         return ResponseEntity.ok(productService.getProductByCategoryId(categoryId));

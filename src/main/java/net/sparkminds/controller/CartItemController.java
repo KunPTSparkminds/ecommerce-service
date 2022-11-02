@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,11 @@ public class CartItemController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteCartItem(@PathVariable("id") Long id) {
         cartItemService.deleteCartItem(id);
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping
+    public ResponseEntity<?> deleteItemByCartId(@RequestParam Long cartId) {
+        cartItemService.deleteItemByCartId(cartId);
         return ResponseEntity.noContent().build();
     }
 }
