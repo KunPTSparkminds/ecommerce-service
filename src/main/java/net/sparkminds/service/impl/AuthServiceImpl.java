@@ -56,11 +56,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public String logout(String jwt) {
+    public void logout(String jwt) {
         long diffInMillies = jwtTokenUtil.getExpirationDateFromToken(jwt).getTime() - new Date().getTime();
         redisService.cacheJWT(jwt, diffInMillies);
-
-        return "Logout Success";
     }
 
     @Override

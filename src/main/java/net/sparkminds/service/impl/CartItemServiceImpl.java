@@ -46,9 +46,11 @@ public class CartItemServiceImpl implements CartItemService{
     }
     @Override
     public List<CartItemResponseDTO> getAllItemInCart(Long id) {
+        Cart cart = cartRepository.findById(id).orElse(null);
+        if (cart == null) {
+            throw new EntityNotFoundException("Cart Not found");
+        }
         List<CartItem> cartTest = cartItemRepository.getItemByCartId(id);
-//        System.out.println("test cart"+cartTest);
-        List<CartItem> cartItem = cartRepository.findById(id).orElse(null).getCartItem();
         return cartTest.stream().map(entity -> CartItemResponseDTO
                 .builder()
                 .cartId(entity.getCart().getId())

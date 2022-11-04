@@ -17,6 +17,7 @@ import net.sparkminds.entity.Product;
 import net.sparkminds.repository.CategoryRepository;
 import net.sparkminds.repository.ProductRepository;
 import net.sparkminds.service.ProductService;
+import net.sparkminds.service.dto.request.ProductParamsRequestDTO;
 import net.sparkminds.service.dto.request.ProductRequestDTO;
 import net.sparkminds.service.dto.response.ProductResponseDTO;
 
@@ -54,7 +55,9 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
         return ProductResponseDTO.builder().id(product.getId()).name(product.getName())
                 .description(product.getDescription()).price(product.getPrice()).quantity(product.getQuantity())
-                .image(product.getImage()).createdAt(product.getCreatedAt()).updateAt(product.getUpdateAt())
+                .image(product.getImage())
+                .createdAt(product.getCreatedAt())
+                .updateAt(product.getUpdateAt())
                 .categoryId(category.getId()).categoryName(category.getName()).build();
     }
 
@@ -72,7 +75,8 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
         return ProductResponseDTO.builder().id(product.getId()).name(product.getName())
                 .description(product.getDescription()).price(product.getPrice()).quantity(product.getQuantity())
-                .image(product.getImage()).createdAt(product.getCreatedAt()).updateAt(product.getUpdateAt())
+                .image(product.getImage())
+                .createdAt(product.getCreatedAt()).updateAt(product.getUpdateAt())
                 .categoryId(category.getId()).categoryName(category.getName()).build();
     }
 
@@ -82,7 +86,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id)
                 .map(entity -> ProductResponseDTO.builder().id(entity.getId()).name(entity.getName())
                         .description(entity.getDescription()).price(entity.getPrice()).quantity(entity.getQuantity())
-                        .image(entity.getImage()).categoryId(entity.getCategory().getId())
+                        .image(entity.getImage())
+                        .categoryId(entity.getCategory().getId())
                         .categoryName(entity.getCategory().getName()).createdAt(entity.getCreatedAt())
                         .updateAt(entity.getUpdateAt()).build())
                 .orElseThrow(() -> new EntityNotFoundException("Product is not exist"));
@@ -109,5 +114,16 @@ public class ProductServiceImpl implements ProductService {
                         .categoryName(entity.getCategory().getName())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ProductResponseDTO> getProducts(Pageable pageable, ProductParamsRequestDTO request) {
+        return productRepository.findAllProductWithPagination(request, pageable)
+                .map(entity -> ProductResponseDTO.builder().id(entity.getId()).name(entity.getName())
+                        .description(entity.getDescription()).price(entity.getPrice()).quantity(entity.getQuantity())
+                        .image(entity.getImage())
+                        .categoryId(entity.getCategory().getId())
+                        .categoryName(entity.getCategory().getName()).createdAt(entity.getCreatedAt())
+                        .updateAt(entity.getUpdateAt()).build());
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import net.sparkminds.repository.ProductRepository;
 import net.sparkminds.service.ProductService;
+import net.sparkminds.service.dto.request.ProductParamsRequestDTO;
 import net.sparkminds.service.dto.request.ProductRequestDTO;
 import net.sparkminds.service.dto.response.ProductResponseDTO;
 
@@ -31,13 +32,22 @@ public class ProductController {
     private final ProductService productService;
     private final ProductRepository productRepository;
 
+//    @GetMapping
+//    public ResponseEntity<List<ProductResponseDTO>> getAllProduct(@PageableDefault Pageable pageable,
+//            HttpServletResponse response) {
+//        long totalElement = productRepository.findAll(pageable).getTotalElements();
+//        response.addHeader("X-Total-Count", String.valueOf(totalElement));
+//        response.addHeader("Access-Control-Expose-Headers", "*");
+//        final Page<ProductResponseDTO> page = productService.getAllProduct(pageable);
+//        return ResponseEntity.ok().body(page.getContent());
+//    }
+
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> getAllProduct(@PageableDefault Pageable pageable,
-            HttpServletResponse response) {
-        long totalElement = productRepository.findAll(pageable).getTotalElements();
-        response.addHeader("X-Total-Count", String.valueOf(totalElement));
+    public ResponseEntity<List<ProductResponseDTO>> getProducts(@PageableDefault Pageable pageable,
+            HttpServletResponse response, ProductParamsRequestDTO request) {
+        final Page<ProductResponseDTO> page = productService.getProducts(pageable, request);
+        response.addHeader("X-Total-Count", String.valueOf(page.getSize()));
         response.addHeader("Access-Control-Expose-Headers", "*");
-        final Page<ProductResponseDTO> page = productService.getAllProduct(pageable);
         return ResponseEntity.ok().body(page.getContent());
     }
 
@@ -63,7 +73,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value="detail")
+    @GetMapping(value = "detail")
     public ResponseEntity<List<ProductResponseDTO>> getProductByCategoryId(@RequestParam Long categoryId) {
         return ResponseEntity.ok(productService.getProductByCategoryId(categoryId));
     }

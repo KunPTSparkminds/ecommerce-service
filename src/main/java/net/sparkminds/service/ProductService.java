@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import net.sparkminds.service.dto.request.ProductParamsRequestDTO;
 import net.sparkminds.service.dto.request.ProductRequestDTO;
 import net.sparkminds.service.dto.response.ProductResponseDTO;
 
@@ -15,4 +16,7 @@ public interface ProductService {
     ProductResponseDTO getProductDetail(Long id);
     List<ProductResponseDTO> getProductByCategoryId(Long id);
     void deleteProduct(Long id);
+    
+    
+    Page<ProductResponseDTO> getProducts(Pageable pageable, ProductParamsRequestDTO request);
 }

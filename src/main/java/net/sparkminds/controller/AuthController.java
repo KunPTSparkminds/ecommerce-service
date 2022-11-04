@@ -38,7 +38,8 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader HttpHeaders headers) {
         String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
-        return ResponseEntity.ok(authService.logout(token.split(" ")[1]));
+        authService.logout(token.split(" ")[1]);
+        return ResponseEntity.noContent().build();
     }
     
 

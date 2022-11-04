@@ -14,6 +14,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     @Query(value = "delete from cart_item where cart_item.cart_id =:cartId", nativeQuery = true)
     void deleteItemByCartId(Long cartId);
 
-    @Query(value = "SELECT SUM(quantity) as quantity, SUM(price) as price, cart_id, product_id,id FROM cart_item WHERE cart_item.cart_id =:cartId GROUP BY cart_id, product_id", nativeQuery = true)
+    @Query(value = "SELECT SUM(quantity) as quantity, SUM(price) as price, cart_id, product_id,id "
+            + "FROM cart_item "
+            + "WHERE cart_item.cart_id =:cartId "
+            + "GROUP BY cart_id, product_id"
+            , nativeQuery = true)
     List<CartItem> getItemByCartId(Long cartId);
 }

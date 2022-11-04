@@ -7,7 +7,7 @@ import net.sparkminds.service.dto.response.UserResponseDTO;
 
 public interface AuthService {
 	LoginResponse login(LoginRequestDTO loginRequestDTO);
-    String logout(String jwt);
+    void logout(String jwt);
 	UserResponseDTO register(RegisterRequestDTO registerRequestDTO);
 	UserResponseDTO getUserDetail(String token);
 }
